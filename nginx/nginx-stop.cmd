@@ -1,0 +1,1 @@
+.\opt\nginx-1.18.0\nginx.exe -c nginx-win.conf -s stop

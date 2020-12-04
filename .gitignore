@@ -1,2 +1,6 @@
 venv
 .idea
+nginx/opt
+nginx/logs
+nginx/pid
+nginx/temp
