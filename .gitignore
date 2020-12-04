@@ -4,3 +4,4 @@ nginx/opt
 nginx/logs
 nginx/pid
 nginx/temp
+__pycache__/
