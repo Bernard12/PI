@@ -5,3 +5,5 @@ nginx/logs
 nginx/pid
 nginx/temp
 __pycache__/
+bin
+lib
