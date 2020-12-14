@@ -54,7 +54,7 @@ ROOT_URLCONF = 'ddjango.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['mtg.templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
