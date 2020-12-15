@@ -1,5 +1,4 @@
 from django.db import models
-from card_info.models import CardInfo
 
 # Create your models here.
 class CardColor(models.Model):
@@ -16,5 +15,4 @@ class CardColor(models.Model):
         (BLACK, BLACK),
     ]
 
-    card_id = models.ForeignKey(CardInfo, null=False, on_delete=models.SET_DEFAULT, default=-1, blank=True)
     card_color = models.CharField(max_length=5, choices=COLOR_CHOICES)
