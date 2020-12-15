@@ -8,7 +8,15 @@ def customer_profile(req, id = None):
 
 @require_http_methods(["GET", "POST"])
 def card_profile(req, id = None):
-    return JsonResponse({ 'Title': 'Simple name', 'author': 'John doe', 'image_url': 'https://example.com', 'description': { 'message': 'Wow', 'author': 'somebody' } })
+    return JsonResponse({
+        'Title': 'Simple name',
+        'author': 'John doe',
+        'image_url': 'https://example.com',
+        'description': { 'message': 'Wow', 'author': 'somebody' },
+        'color': ['red', 'blue'],
+        'expansion': 'zandikar',
+        'type': 'human soldier'
+    })
 
 @require_http_methods(["GET", "POST"])
 def cards_list(req):
