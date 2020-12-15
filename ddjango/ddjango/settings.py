@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'card_color',
     'card_info',
-    'user_profile'
+    'user_profile',
+    'purchased_card'
 ]
 
 MIDDLEWARE = [
