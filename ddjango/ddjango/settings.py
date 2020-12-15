@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'card_color',
     'card_info',
     'user_profile',
-    'purchased_card'
 ]
 
 MIDDLEWARE = [
@@ -80,7 +79,7 @@ WSGI_APPLICATION = 'ddjango.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'django_db',
+        'NAME': 'django_db2',
         'USER': 'django',
         'PASSWORD': 'pass',
         'HOST': '127.0.0.1',
