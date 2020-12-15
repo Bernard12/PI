@@ -20,5 +20,5 @@ def cards_list(req):
     return JsonResponse({ 'cards': [] })
 
 @require_http_methods(["GET", "POST"])
-def cards_list_by_category(req, category = None):
+def cards_list_by_color(req, category = None):
     return JsonResponse({ 'cards': [] })
