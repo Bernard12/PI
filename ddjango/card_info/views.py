@@ -55,10 +55,9 @@ class CardCreateView(APIView):
         if not form.is_valid():
             return JsonResponse({ 'errors': form.errors })
 
-        # create_card(title='', author='', image_url='', expansion='', card_type='', colors=[], lore_message=None, lore_author=None) -> id:
+        # create_card(title='', author='', card_image=None, expansion='', card_type='', colors=[], lore_message=None, lore_author=None) -> id:
         title = form.cleaned_data['title']
         author = form.cleaned_data['author']
-        image_url = form.cleaned_data['image_url']
         expansion = form.cleaned_data['expansion']
         card_type = form.cleaned_data['card_type']
         colors = form.cleaned_data['colors']
@@ -66,7 +65,7 @@ class CardCreateView(APIView):
         lore_message = form.cleaned_data['lore_message']
         lore_author = form.cleaned_data['lore_author']
 
-        card_id = create_card(title, author, image_url, expansion, card_type, colors, lore_message, lore_author)
+        card_id = create_card(title, author, None, expansion, card_type, colors, lore_message, lore_author)
         return JsonResponse({ 'status' : 'Card created', 'id': card_id })
 
 # add post request
