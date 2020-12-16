@@ -10,8 +10,8 @@ def get_all_cards():
 def get_cards_by_color(color=''):
     return CardInfo.objects.filter(colors__card_color__exact=color)
 
-def create_card(title='', author='', image_url='', expansion='', card_type='', color=[], lore_message=None, lore_author=None):
-    card_colors = CardColor.objects.filter(card_color__in=color)
+def create_card(title='', author='', image_url='', expansion='', card_type='', colors=[], lore_message=None, lore_author=None):
+    card_colors = CardColor.objects.filter(card_color__in=colors)
     card = CardInfo.objects.create(
         title=title,
         author=author,
@@ -24,3 +24,4 @@ def create_card(title='', author='', image_url='', expansion='', card_type='', c
     for col in card_colors:
         print(col)
         card.colors.add(col)
+    return card.id

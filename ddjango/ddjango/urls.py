@@ -1,12 +1,13 @@
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path
 from user_profile.views import user_profile
-from card_info.views import card_profile, cards_list, cards_list_by_color
+from card_info.views import card_profile, cards_list, cards_list_by_color, CardCreateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    re_path('user', user_profile),
-    re_path('card/(?P<id>\d+)', card_profile),
-    re_path('cards', cards_list),
-    re_path('cards/(?P<color>\w+)', cards_list_by_color),
+    path('user', user_profile),
+    path('api/v1/card', card_profile),
+    path('api/v1/card/create', CardCreateView.as_view()),
+    path('api/v1/cards', cards_list),
+    path('api/v1/cards/color', cards_list_by_color),
 ]
