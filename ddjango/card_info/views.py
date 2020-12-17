@@ -59,7 +59,7 @@ class CardCreateView(APIView):
         title = form.cleaned_data['title']
         author = form.cleaned_data['author']
         expansion = form.cleaned_data['expansion']
-        card_type = form.cleaned_data['card_type']
+        card_type = form.cleaned_data['type']
         colors = form.cleaned_data['colors']
 
         lore_message = form.cleaned_data['lore_message']

@@ -22,6 +22,6 @@ def create_card(title='', author='', card_image=None, expansion='', card_type=''
         lore_author=lore_author,
     )
     for col in card_colors:
-        print(col)
+        # print(col)
         card.colors.add(col)
     return card.id

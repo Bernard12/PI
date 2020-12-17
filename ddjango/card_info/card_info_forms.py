@@ -2,18 +2,14 @@ from django import forms
 from django.core.exceptions import ValidationError
 
 from card_color.models import COLOR_CHOICES
+from card_info.models import CardInfo
 
-class CardCreateForm(forms.Form):
-    title = forms.CharField(max_length=128)
-    author = forms.CharField(max_length=128)
-    image_url = forms.CharField(max_length=128)
-    expansion = forms.CharField(max_length=128)
-    card_type = forms.CharField(max_length=128)
-
+class CardCreateForm(forms.ModelForm):
     colors = forms.CharField(max_length=128)
 
-    lore_message = forms.CharField(max_length=128)
-    lore_author = forms.CharField(max_length=128)
+    class Meta:
+        model = CardInfo
+        fields = ('title', 'author', 'expansion', 'type', 'lore_message', 'lore_author')
 
     def clean_colors(self):
         raw_colors = self.cleaned_data['colors']
