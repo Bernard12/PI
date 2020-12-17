@@ -1,0 +1,17 @@
+boto3==1.16.37
+botocore==1.19.37
+Django==2.2.5
+django-storages==1.11
+djangorestframework==3.12.2
+gunicorn==20.0.4
+isort==5.6.4
+jmespath==0.10.0
+mccabe==0.6.1
+Pillow==8.0.1
+psycopg2==2.8.6
+python-dateutil==2.8.1
+pytz==2020.4
+s3transfer==0.3.3
+six==1.15.0
+sqlparse==0.4.1
+urllib3==1.26.2
