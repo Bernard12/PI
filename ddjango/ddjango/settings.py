@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'card_color',
     'card_info',
     'user_profile',
+
+    'storages'
 ]
 
 MIDDLEWARE = [
