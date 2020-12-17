@@ -1,6 +1,8 @@
 from card_info.models import CardInfo
 from card_color.models import CardColor
 
+from django.core.files.images import ImageFile
+
 def get_card(id = 0):
     return CardInfo.objects.get(id=id)
 
@@ -25,3 +27,8 @@ def create_card(title='', author='', card_image=None, expansion='', card_type=''
         # print(col)
         card.colors.add(col)
     return card.id
+
+def upload_card_image(card_id=0, image=None):
+    card = get_card(card_id)
+    card.card_image = image
+    card.save()

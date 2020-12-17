@@ -2,9 +2,9 @@ from django.shortcuts import render
 from django.http import JsonResponse, HttpResponseNotFound
 from django.views.decorators.http import require_http_methods
 
-from card_info.card_info_forms import CardListColorForm, CardProfileForm, CardCreateForm
+from card_info.card_info_forms import CardListColorForm, CardProfileForm, CardCreateForm, CardImageUploadForm
 from card_info.models import CardInfo
-from card_info.api import get_cards_by_color, get_all_cards, get_card, create_card
+from card_info.api import get_cards_by_color, get_all_cards, get_card, create_card, upload_card_image
 from card_info.serializers import CardInfoSerializer
 
 from rest_framework.views import APIView
@@ -68,6 +68,23 @@ class CardCreateView(APIView):
         card_id = create_card(title, author, None, expansion, card_type, colors, lore_message, lore_author)
         return JsonResponse({ 'status' : 'Card created', 'id': card_id })
 
-# add post request
-# def card_create(req):
+
+class CardImageUploadView(APIView):
+    def post(self, req):
+        form = CardImageUploadForm(req.POST, req.FILES or None)
+
+        if not form.is_valid():
+            return JsonResponse({ 'errors': form.errors })
+
+        card_id = form.cleaned_data['card_id']
+        card_image = form.cleaned_data['card_image']
+
+        try:
+            upload_card_image(card_id, card_image)
+            return JsonResponse({ 'status' : 'image uploaded successfuly' })
+        except err:
+            print(err)
+            return JsonResponse({ 'error' : 'failed to upload image' })
+
+
 

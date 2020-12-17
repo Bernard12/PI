@@ -27,3 +27,7 @@ class CardProfileForm(forms.Form):
 
 class CardListColorForm(forms.Form):
     color = forms.ChoiceField(choices = COLOR_CHOICES)
+
+class CardImageUploadForm(forms.Form):
+    card_id = forms.IntegerField()
+    card_image = forms.ImageField()
