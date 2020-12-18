@@ -6,8 +6,10 @@ from user_profile.user_profile_form import UserProfileForm
 from user_profile.models import UserProfile 
 from user_profile.api import get_user
 
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required
 @require_http_methods(["GET"])
 def user_profile(req):
 
