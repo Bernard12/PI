@@ -2,9 +2,8 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 
-from user_profile.user_profile_form import UserProfileForm
 from user_profile.models import UserProfile 
-from user_profile.api import get_user
+from user_profile.api import get_user_by_name
 
 from django.contrib.auth.decorators import login_required
 
@@ -12,14 +11,9 @@ from django.contrib.auth.decorators import login_required
 @login_required
 @require_http_methods(["GET"])
 def user_profile(req):
-
-    form = UserProfileForm(req.GET)
-
-    if not form.is_valid():
-        return JsonResponse({ 'error': form.errors })
-    
     try:
-        user = get_user(form.cleaned_data['id'])
+        username = req.user.username
+        user = get_user_by_name(username)
         return JsonResponse({ 'name': user.name, 'purchased_cards': [] })
     except UserProfile.DoesNotExist:
         return JsonResponse({ 'status': 'Not found' }, status=404)

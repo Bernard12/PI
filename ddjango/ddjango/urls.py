@@ -10,7 +10,6 @@ from views.home import home_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('user', user_profile),
 
     path('home/', home_view),
 
@@ -18,6 +17,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('social_auth/', include('social_django.urls', namespace='social')),
 
+    path('api/v1/user', user_profile),
     path('api/v1/card', card_profile),
     path('api/v1/card/create', CardCreateView.as_view()),
     path('api/v1/card/upload/image', CardImageUploadView.as_view()),

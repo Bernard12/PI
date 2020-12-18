@@ -1,4 +1,4 @@
 from django import forms
 
-class UserProfileForm(forms.Form):
+class UserProfileByIdForm(forms.Form):
     id = forms.IntegerField()
