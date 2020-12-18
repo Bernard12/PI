@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-from .secret import ACCESS_KEY_ID, SECRET_ACCESS_KEY, STORAGE_BUCKET_NAME
+from .secret import ACCESS_KEY_ID, SECRET_ACCESS_KEY, STORAGE_BUCKET_NAME, GOOGLE_OAUTH2_KEY, GOOGLE_OAUTH2_SECRET, GITHUB_KEY, GITHUB_SECRET
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,7 +26,7 @@ SECRET_KEY = '1b+v-io$6%=6y#(bi3w4o8f&zu(d*ssyc6$)z_(cr3+4v$f@*w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ec2-3-127-247-173.eu-central-1.compute.amazonaws.com']
 
 
 # Application definition
@@ -61,7 +61,7 @@ ROOT_URLCONF = 'ddjango.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['mtg.templates'],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -69,6 +69,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect'
             ],
         },
     },
@@ -148,3 +151,26 @@ AWS_S3_HOST = 's3.eu-central-1.amazonaws.com'
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# AUTH PART
+AUTHENTICATION_BACKENDS = [
+ 'django.contrib.auth.backends.ModelBackend',
+ 'social_core.backends.vk.VKOAuth2',
+ 'social_core.backends.github.GithubOAuth2',
+ 'social_core.backends.facebook.FacebookOAuth2',
+ 'social_core.backends.google.GoogleOAuth2'
+]
+SOCIAL_AUTH_POSTGRES_JSONFIELD = True
+
+SOCIAL_AUTH_GITHUB_KEY = GITHUB_KEY
+SOCIAL_AUTH_GITHUB_SECRET = GITHUB_SECRET
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = GOOGLE_OAUTH2_KEY
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = GOOGLE_OAUTH2_SECRET
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_URL = 'logout'
+LOGOUT_REDIRECT_URL = '/'
+
+
