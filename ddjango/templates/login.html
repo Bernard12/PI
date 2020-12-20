@@ -2,9 +2,9 @@
 	<h1>Hello world</h1>
 	<h1>Please login with google or github!</h1>
 	<button>
-		<a href="{% url 'social:begin' 'google-oauth2' %}">GOOGLE LOGIN</a>
+		<a id="google-login" href="{% url 'social:begin' 'google-oauth2' %}">GOOGLE LOGIN</a>
 	</button>
 	<button>
-		<a href="{% url 'social:begin' 'github' %}">GITHUB LOGIN</a>
+		<a id="github-login" href="{% url 'social:begin' 'github' %}">GITHUB LOGIN</a>
 	</button>
 </html>
