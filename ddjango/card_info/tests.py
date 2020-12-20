@@ -1,8 +1,9 @@
 from django.test import TestCase, Client
+from django.core.files import File
 from factory import Faker, Factory, Sequence, SubFactory, post_generation
 from factory.fuzzy import FuzzyChoice
+from mock import MagicMock
 
-import card_info
 from card_info.models import CardInfo
 from card_color.models import CardColor, COLOR_CHOICES
 from card_info.serializers import CardInfoSerializer
@@ -127,7 +128,12 @@ class CardListTest(TestCase):
         res_json = json.loads(response.content)['cards']
 
         self.assertEquals(response.status_code, 200)
-        self.assertEquals(len(res_json), 1)
+        
+        if self.colors[0].card_color == self.colors[1].card_color:
+            self.assertEquals(len(res_json), 2)
+        else:
+            self.assertEquals(len(res_json), 1)
+
         self.assertEquals(res_json[0]['title'], self.card1.title)
 
     @patch('card_info.views.get_cards_by_color', autospec=True)
@@ -143,3 +149,59 @@ class CardListTest(TestCase):
         self.assertTrue(missing_color != None)
         response = self.client.get(f'/api/v1/cards/color?color={missing_color}')
         self.assertEquals(response.status_code, 404)        
+
+class CardCreateViewTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+
+    def test_should_return_400_if_form_is_invalid(self):
+        response = self.client.post('/api/v1/card/create', {})
+        self.assertEquals(response.status_code, 400)
+
+    def test_should_create_card(self):
+        card = CardProfileFactory.build()
+        color = CardColorFactory.build()
+
+        opts = {
+                'title': card.title,
+                'author': card.author,
+                'expansion': card.expansion,
+                'type': card.type,
+                
+                'colors': color.card_color,
+
+                'lore_message': card.lore_message,
+                'lore_author': card.lore_author
+        }
+
+        response = self.client.post('/api/v1/card/create', opts)
+        
+        self.assertEquals(response.status_code, 200)
+        found_card = CardInfo.objects.all().first()
+        self.assertEquals(card.title, found_card.title)
+
+class CardImageUploadViewTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+
+    def test_should_return_400_if_form_is_invalid(self):
+        response = self.client.post('/api/v1/card/upload/image')
+        self.assertEquals(response.status_code, 400)
+
+    def test_should_upload_image(self):
+        card = CardProfileFactory.build()
+        color = CardColorFactory.build()
+
+        card.save()
+        color.save()
+        card.colors.add(color)
+
+        self.assertTrue(card.card_image == None)
+
+        opts = {
+                'card_id': card.id,
+                'card_image': MagicMock(spec=File, name='MegaMock')
+        }
+        response = self.client.post('/api/v1/card/upload/image', opts)
+        card = CardInfo.objects.all().first()
+        self.assertFalse(card.card_image == None)

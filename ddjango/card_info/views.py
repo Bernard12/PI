@@ -53,7 +53,7 @@ class CardCreateView(APIView):
         form = CardCreateForm(req.POST)
         
         if not form.is_valid():
-            return JsonResponse({ 'errors': form.errors }, status_code=400)
+            return JsonResponse({ 'errors': form.errors }, status=400)
 
         # create_card(title='', author='', card_image=None, expansion='', card_type='', colors=[], lore_message=None, lore_author=None) -> id:
         title = form.cleaned_data['title']
@@ -74,7 +74,7 @@ class CardImageUploadView(APIView):
         form = CardImageUploadForm(req.POST, req.FILES or None)
 
         if not form.is_valid():
-            return JsonResponse({ 'errors': form.errors })
+            return JsonResponse({ 'errors': form.errors }, status=400)
 
         card_id = form.cleaned_data['card_id']
         card_image = form.cleaned_data['card_image']
