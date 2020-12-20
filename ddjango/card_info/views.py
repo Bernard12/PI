@@ -15,7 +15,7 @@ def card_profile(req):
     form = CardProfileForm(req.GET)
 
     if not form.is_valid():
-        return JsonResponse({ 'error': form.errors })
+        return JsonResponse({ 'error': form.errors }, status=400)
 
     try:
         card = get_card(form.cleaned_data['id'])
@@ -38,7 +38,7 @@ def cards_list_by_color(req):
     form = CardListColorForm(req.GET)
 
     if not form.is_valid():
-        return JsonResponse({ 'errors': form.errors })
+        return JsonResponse({ 'errors': form.errors }, status=400)
 
     try:
         cards = get_cards_by_color(form.cleaned_data['color'])
@@ -53,7 +53,7 @@ class CardCreateView(APIView):
         form = CardCreateForm(req.POST)
         
         if not form.is_valid():
-            return JsonResponse({ 'errors': form.errors })
+            return JsonResponse({ 'errors': form.errors }, status_code=400)
 
         # create_card(title='', author='', card_image=None, expansion='', card_type='', colors=[], lore_message=None, lore_author=None) -> id:
         title = form.cleaned_data['title']
