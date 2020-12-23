@@ -57,9 +57,7 @@ def card_search_results(req):
 
     title = form.cleaned_data['title']
     hits = card_search(title)
-    for hit in hits:
-        hit.colors = ' '.join(hit.colors)
-    return render(req, 'results.html', hits)
+    return render(req, 'results.html', { 'hits': hits })
 
 @require_http_methods(["GET"])
 def card_search_view(req):
