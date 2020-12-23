@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search cards by title</title>
+</head>
+<body>
+<button onclick="back()">BACK</button>
+<div style="display: flex;">
+    <div style="margin: 0 auto;">
+        <h4 style="margin: 0.5rem;">SEARCH CARD BY TITLE</h4>
+        <label>
+            <input type="text" id="search_title"/>
+        </label>
+        <button type="submit" onclick="redirectToResults()">SEARCH</button>
+    </div>
+</div>
+
+<script>
+    function back() {
+        window.location.href = `/api/v1/card/search`;
+    }
+
+    function redirectToResults() {
+        const title = document.getElementById("search_title").innerText;
+        window.location.href = `/api/v1/card/results?title=${title}`;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+    <style>
+        h3 {
+            margin: 0 0.5rem;
+        }
+    </style>
+</head>
+<body>
+<div style="display: flex;">
+    {% for i in hits %}
+    <div>
+        <h3>Title: {{ i.title }}</h3>
+        <h3>Author: {{ i.author }} </h3>
+        <h3>Expansion: {{ i.expansion }} </h3>
+        <h3>Type: {{ i.type }}</h3>
+        <h3>Colors: {{ i.colors }}</h3>
+        <h3>Lore message: {{ i.lore_message }} </h3>
+        <h3>Lore author: {{ i.lore_author }} </h3>
+    </div>
+    {% endfor %}
+</div>
+</body>
+</html>
