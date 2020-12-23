@@ -36,4 +36,4 @@ class CardImageUploadForm(forms.Form):
     card_image = forms.ImageField()
 
 class CardSearchForm(forms.Form):
-    title = forms.CharField(required=False)
+    title = forms.CharField()

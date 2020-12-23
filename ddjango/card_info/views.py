@@ -49,7 +49,7 @@ def cards_list_by_color(req):
         return JsonResponse({ 'cards': [] }, status=404)
 
 @require_http_methods(["GET"])
-def card_search_view(req):
+def card_search_results(req):
     form = CardSearchForm(req.GET)
 
     if not form.is_valid():
@@ -57,9 +57,13 @@ def card_search_view(req):
 
     title = form.cleaned_data['title']
     hits = card_search(title)
-    return JsonResponse(json.dumps(hits), status=200, safe=False)
+    for hit in hits:
+        hit.colors = ' '.join(hit.colors)
+    return render(req, 'results.html', hits)
 
-    
+@require_http_methods(["GET"])
+def card_search_view(req):
+    return render(req, 'search.html', {})
 
 class CardCreateView(APIView):
     def post(self, req):
