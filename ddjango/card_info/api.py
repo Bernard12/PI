@@ -2,6 +2,8 @@ from card_info.models import CardInfo
 from card_color.models import CardColor
 
 from django.core.files.images import ImageFile
+from elasticsearch import Elasticsearch
+from elasticsearch_dsl import Q, Search
 
 def get_card(id = 0):
     return CardInfo.objects.get(id=id)
@@ -32,3 +34,10 @@ def upload_card_image(card_id=0, image=None):
     card = get_card(card_id)
     card.card_image = image
     card.save()
+
+def card_search(search_title=''):
+    client = Elasticsearch()
+    s = Search(using=client)
+    s.query = Q('match', title=search_title)
+    return [i.to_dict() for i in s.execute().hits]
+

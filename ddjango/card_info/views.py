@@ -2,12 +2,13 @@ from django.shortcuts import render
 from django.http import JsonResponse, HttpResponseNotFound
 from django.views.decorators.http import require_http_methods
 
-from card_info.card_info_forms import CardListColorForm, CardProfileForm, CardCreateForm, CardImageUploadForm
+from card_info.card_info_forms import CardListColorForm, CardProfileForm, CardCreateForm, CardImageUploadForm, CardSearchForm
 from card_info.models import CardInfo
-from card_info.api import get_cards_by_color, get_all_cards, get_card, create_card, upload_card_image
+from card_info.api import get_cards_by_color, get_all_cards, get_card, create_card, upload_card_image, card_search
 from card_info.serializers import CardInfoSerializer
-
 from rest_framework.views import APIView
+
+import json
 
 # Create your views here.
 @require_http_methods(["GET"])
@@ -47,6 +48,18 @@ def cards_list_by_color(req):
     except CardInfo.DoesNotExist:
         return JsonResponse({ 'cards': [] }, status=404)
 
+@require_http_methods(["GET"])
+def card_search_view(req):
+    form = CardSearchForm(req.GET)
+
+    if not form.is_valid():
+        return JsonResponse({ 'errors': form.errors }, status=400)
+
+    title = form.cleaned_data['title']
+    hits = card_search(title)
+    return JsonResponse(json.dumps(hits), status=200, safe=False)
+
+    
 
 class CardCreateView(APIView):
     def post(self, req):
@@ -85,6 +98,4 @@ class CardImageUploadView(APIView):
         except err:
             print(err)
             return JsonResponse({ 'error' : 'failed to upload image' })
-
-
 
