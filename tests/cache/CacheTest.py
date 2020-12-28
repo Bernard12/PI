@@ -20,7 +20,7 @@ class CacheTestCase(unittest.TestCase):
 
         self.assertEqual(cache.get('1'), 'a')
         cache.set('3', 'c')
-        self.assertEqual(cache.get('1'), '')
+        self.assertEqual(cache.get('2'), '')
         self.assertEqual(cache.get('3'), 'c')
 
 

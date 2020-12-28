@@ -22,7 +22,7 @@ class Cache:
         keys = list(self.innerCache.keys())
 
         if len(keys) == self.capacity:
-            last_key = keys[-1]
+            last_key = keys[0]
             del self.innerCache[last_key]
 
         self.innerCache[key] = value
