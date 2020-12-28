@@ -12,6 +12,17 @@ class CacheTestCase(unittest.TestCase):
         cache.rem('Walter')
         self.assertEqual(cache.get('Walter'), '')
 
+    def test_capacity(self):
+        cache = Cache(2)
+
+        cache.set('1', 'a')
+        cache.set('2', 'b')
+
+        self.assertEqual(cache.get('1'), 'a')
+        cache.set('3', 'c')
+        self.assertEqual(cache.get('1'), '')
+        self.assertEqual(cache.get('3'), 'c')
+
 
 if __name__ == '__main__':
     unittest.main()
